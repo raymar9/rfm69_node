@@ -8,15 +8,16 @@
 
 #include <avr/io.h>
 #include <util/delay.h>
+#include <avrhal/io.h>
 
 int main (void) {
 
-   DDRB |= (1 << PB1);
+    Io_SetOutput(PB1);
 
-   while(1) {
-       PORTB ^= (1 << PB1);
-       _delay_ms(500);
-   }
+    while(1) {
+        Io_Toggle(PB1);
+       _delay_ms(1000);
+    }
 
-   return 0;
+    return 0;
 }

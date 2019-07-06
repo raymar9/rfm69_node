@@ -5,3 +5,5 @@ add_executable(avr_node.elf ${AVR_NODE_SRC_FILES})
 if(CMAKE_CROSSCOMPILING)
     avr_executable_settings(avr_node)
 endif()
+
+target_link_libraries(avr_node.elf PRIVATE avrhal)

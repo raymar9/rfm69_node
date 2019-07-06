@@ -246,7 +246,7 @@ function ( avr_executable_settings EXECUTABLE_NAME)
     set( eeprom_image ${EXECUTABLE_NAME}_eeprom.hex )
 
     target_compile_options(
-        ${elf_file} PUBLIC
+        ${elf_file} PRIVATE
         -ffunction-sections
         -fdata-sections
         -fpack-struct
@@ -258,7 +258,7 @@ function ( avr_executable_settings EXECUTABLE_NAME)
     )
 
     target_link_libraries(
-        ${elf_file} "-mmcu=${AVR_MCU} -Wl,--gc-sections -mrelax -Wl,-Map,${map_file}"
+        ${elf_file} PRIVATE -mmcu=${AVR_MCU} -Wl,--gc-sections -mrelax -Wl,-Map,${map_file}
     )
 
     # generate hex file
@@ -369,12 +369,13 @@ function( avr_library_settings LIBRARY_NAME )
     set( lib_file ${LIBRARY_NAME})
 
     set_target_properties(
-      ${lib_file}
-      PROPERTIES
-         OUTPUT_NAME "${lib_file}"
+        ${lib_file}
+        PROPERTIES
+        OUTPUT_NAME "${lib_file}"
     )
 
-    target_compile_options( ${lib_file} PUBLIC
+    target_compile_options(
+         ${lib_file} PRIVATE
         -ffunction-sections
         -fdata-sections
         -fpack-struct
